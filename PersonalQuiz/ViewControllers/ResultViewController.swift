@@ -19,7 +19,7 @@ class ResultViewController: UIViewController {
         
         navigationItem.hidesBackButton = true
         
-        var resultScores: [Animal: Int] = [:]
+        var resultScores = [Animal: Int]()
         
         for answer in answers {
             if let oldResult = resultScores.updateValue(1, forKey: answer.animal) {
