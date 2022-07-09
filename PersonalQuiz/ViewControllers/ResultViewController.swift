@@ -18,7 +18,18 @@ class ResultViewController: UIViewController {
         super.viewDidLoad()
         
         navigationItem.hidesBackButton = true
-        
+               
+        if let animal = getResultAnimal() {
+            resultLabel.text = "Вы - \(animal.rawValue)!"
+            descriptionLabel.text = animal.definition
+        }
+    }
+    
+    @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
+        navigationController?.dismiss(animated: true)
+    }
+    
+    private func getResultAnimal() -> Animal? {
         var resultScores = [Animal: Int]()
         
         for answer in answers {
@@ -28,13 +39,8 @@ class ResultViewController: UIViewController {
         }
                
         let maxScore = resultScores.max { $0.value < $1.value }
-        guard let animal = maxScore?.key else { return }
+        guard let animal = maxScore?.key else { return nil }
         
-        resultLabel.text = "Вы - \(animal.rawValue)!"
-        descriptionLabel.text = animal.definition
-    }
-    
-    @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
-        navigationController?.dismiss(animated: true)
+        return animal
     }
 }
